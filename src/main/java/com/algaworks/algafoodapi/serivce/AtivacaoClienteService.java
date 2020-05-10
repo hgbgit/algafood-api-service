@@ -1,22 +1,35 @@
 package com.algaworks.algafoodapi.serivce;
 
 import com.algaworks.algafoodapi.domain.Cliente;
-import com.algaworks.algafoodapi.notificacao.Notificador;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Component
 public class AtivacaoClienteService {
 
     @Autowired
-    @Qualifier("sms")
-    private Notificador notificador;
+    ApplicationEventPublisher eventPublisher;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("INIT: " + this.getClass()
+                                          .getName());
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("DESTROY: " + this.getClass()
+                                             .getName());
+    }
 
     public void ativar(Cliente cliente) {
         cliente.ativar();
 
-        notificador.notificar(cliente, "Seu cadastro no sistema está ativo\n");
+        eventPublisher.publishEvent(new ClienteAtivadoEvent(cliente));
     }
 
 }
