@@ -1,3 +1,13 @@
 spring:
   profiles:
-    active: dev
+    active: prod
+
+server.port: 8081
+
+notificador:
+  email:
+    host: xpto.smtp.com.br
+    porta: 25
+  sms:
+    host: sms.algafood.com.br
+    porta: 9000
