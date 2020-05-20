@@ -1,7 +1,7 @@
 package com.algaworks.algafoodapi.api;
 
-import com.algaworks.algafoodapi.data.entity.Estado;
-import com.algaworks.algafoodapi.serivce.EstadoService;
+import com.algaworks.algafoodapi.data.entity.Restaurante;
+import com.algaworks.algafoodapi.serivce.RestauranteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,40 +16,40 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estados")
-public class EstadoControler {
+@RequestMapping("/restaurantes")
+public class RestauranteController {
 
-    private final EstadoService estadoService;
+    private final RestauranteService restauranteService;
 
-    public EstadoControler(EstadoService estadoService) {
-        this.estadoService = estadoService;
+    public RestauranteController(RestauranteService restauranteService) {
+        this.restauranteService = restauranteService;
     }
 
     @GetMapping
-    public List<Estado> listar() {
-        return estadoService.findAll();
+    public List<Restaurante> listar() {
+        return restauranteService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Estado buscar(@PathVariable Long id) {
-        return estadoService.findById(id);
+    public Restaurante buscar(@PathVariable Long id) {
+        return restauranteService.find(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado criar(@RequestBody Estado estado) {
-        return estadoService.create(estado);
+    public Restaurante criar(@RequestBody Restaurante restaurante) {
+        return restauranteService.save(restaurante);
     }
 
     @PutMapping("/{id}")
-    public Estado atualizar(@PathVariable Long id, @RequestBody Estado estado) {
-        return estadoService.update(id, estado);
+    public Restaurante atualizar(@RequestBody Restaurante restaurante, @PathVariable Long id) {
+        return restauranteService.update(id, restaurante);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long id) {
-        estadoService.delete(id);
+        restauranteService.delete(id);
     }
 
 }

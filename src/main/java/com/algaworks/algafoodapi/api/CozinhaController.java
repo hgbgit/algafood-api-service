@@ -1,10 +1,8 @@
 package com.algaworks.algafoodapi.api;
 
 import com.algaworks.algafoodapi.data.entity.Cozinha;
-import com.algaworks.algafoodapi.data.repository.CozinhaRepository;
-import org.springframework.beans.BeanUtils;
+import com.algaworks.algafoodapi.serivce.CozinhaService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,50 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cozinhas")
+@RequestMapping("/cozinhas")
 public class CozinhaController {
 
-    private final CozinhaRepository cozinhaRepository;
+    private final CozinhaService cozinhaService;
 
-    public CozinhaController(CozinhaRepository cozinhaRepository) {
-        this.cozinhaRepository = cozinhaRepository;
+    public CozinhaController(CozinhaService cozinhaService) {
+        this.cozinhaService = cozinhaService;
     }
 
-    @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping
     public List<Cozinha> listar() {
-        return cozinhaRepository.findAll();
+        return cozinhaService.findAll();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Cozinha buscar(@PathVariable Long id) {
-        return cozinhaRepository.findById(id)
-                                .get();
+        return cozinhaService.find(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cozinha criar(@RequestBody Cozinha cozinha) {
-        return cozinhaRepository.save(cozinha);
+        return cozinhaService.save(cozinha);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Cozinha atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
-        Cozinha currentCozinha = cozinhaRepository.findById(id)
-                                                  .orElseThrow(RuntimeException::new);
-
-        BeanUtils.copyProperties(cozinha, currentCozinha, "id");
-
-        return cozinhaRepository.save(currentCozinha);
+        return cozinhaService.update(id, cozinha);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long id) {
-        cozinhaRepository.findById(id)
-                         .ifPresentOrElse(c -> cozinhaRepository.deleteById(c.getId()), () -> {
-                             throw new RuntimeException();
-                         });
+        cozinhaService.delete(id);
     }
 }

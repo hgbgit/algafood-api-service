@@ -1,7 +1,7 @@
 package com.algaworks.algafoodapi.api;
 
-import com.algaworks.algafoodapi.data.entity.Estado;
-import com.algaworks.algafoodapi.serivce.EstadoService;
+import com.algaworks.algafoodapi.data.entity.Cidade;
+import com.algaworks.algafoodapi.serivce.CidadeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,40 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estados")
-public class EstadoControler {
+@RequestMapping("/cidades")
+public class CidadeController {
 
-    private final EstadoService estadoService;
+    private final CidadeService cidadeService;
 
-    public EstadoControler(EstadoService estadoService) {
-        this.estadoService = estadoService;
+    public CidadeController(CidadeService cidadeService) {
+        this.cidadeService = cidadeService;
     }
 
     @GetMapping
-    public List<Estado> listar() {
-        return estadoService.findAll();
+    public List<Cidade> listar() {
+        return cidadeService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Estado buscar(@PathVariable Long id) {
-        return estadoService.findById(id);
+    public Cidade buscar(@PathVariable Long id) {
+        return cidadeService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado criar(@RequestBody Estado estado) {
-        return estadoService.create(estado);
+    public Cidade criar(@RequestBody Cidade cidade) {
+        return cidadeService.create(cidade);
     }
 
     @PutMapping("/{id}")
-    public Estado atualizar(@PathVariable Long id, @RequestBody Estado estado) {
-        return estadoService.update(id, estado);
+    public Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
+        return cidadeService.update(id, cidade);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long id) {
-        estadoService.delete(id);
+        cidadeService.delete(id);
     }
-
 }
