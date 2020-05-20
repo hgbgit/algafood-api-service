@@ -1,6 +1,6 @@
 package com.algaworks.algafoodapi.serivce;
 
-import com.algaworks.algafoodapi.domain.Cliente;
+import com.algaworks.algafoodapi.data.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

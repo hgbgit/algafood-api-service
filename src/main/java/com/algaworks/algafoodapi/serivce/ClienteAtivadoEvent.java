@@ -1,6 +1,6 @@
 package com.algaworks.algafoodapi.serivce;
 
-import com.algaworks.algafoodapi.domain.Cliente;
+import com.algaworks.algafoodapi.data.entity.Cliente;
 
 public class ClienteAtivadoEvent {
 

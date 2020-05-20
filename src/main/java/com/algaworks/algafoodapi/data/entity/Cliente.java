@@ -1,4 +1,4 @@
-package com.algaworks.algafoodapi.domain;
+package com.algaworks.algafoodapi.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

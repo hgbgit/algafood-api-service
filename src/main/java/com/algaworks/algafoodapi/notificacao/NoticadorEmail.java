@@ -1,6 +1,6 @@
 package com.algaworks.algafoodapi.notificacao;
 
-import com.algaworks.algafoodapi.domain.Cliente;
+import com.algaworks.algafoodapi.data.entity.Cliente;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
